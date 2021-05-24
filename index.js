@@ -31,6 +31,13 @@ const dialogflowFulfillment = (request, response) => {
     }
 
     function getwe(agetn){
+        // get city, date
+        var city = "서울특별시";
+        city = agent.request_.body.queryResult.outputContexts[0].parameters['city.original'];
+        var date = new Date();
+        var dateString = agent.request_.body.queryResult.outputContexts[0].parameters['date.original'];
+        var date = new Date(dateString);
+
         const getJSON = function(url, callback){
             var xhr = new XMLHttpRequest();
             xhr.open('GET', url, true);
