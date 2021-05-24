@@ -30,12 +30,12 @@ const dialogflowFulfillment = (request, response) => {
         agent.add("[heroku]아하, 당신의 이름은 <" + name + "> 군요!!");
     }
 
-    function getwe(agent){
+    function getweather(agent){
         // get city, date
         var city = "서울특별시";
         city = agent.request_.body.queryResult.outputContexts[0].parameters['city.original'];
         var date = new Date();
-        var dateString = agent.request_.body.queryResult.outputContexts[0].parameters['date.original'];
+        var dateString = agent.request_.body.queryResult.outputContexts[0].parameters['date'];
         date = Date(dateString);
 
         const getJSON = function(url, callback){
@@ -51,7 +51,7 @@ const dialogflowFulfillment = (request, response) => {
                     callback(status, xhr.response);
                 }
             };
-            xhr.send
+            xhr.send();
         };
 
         getJSON("http://api.openweathermap.org/data/2.5/forecast?q="+city+"&APPID=25a0d91f0eda1fe617efca8571041caf",
@@ -116,6 +116,6 @@ const dialogflowFulfillment = (request, response) => {
     intentMap.set("Default Welcome Intent", sayHello)
     //intentMap.set("Lecture", sayHello)
     //intentMap.set("askEmail", sayName)
-    intentMap.set("Getweather-city", getwe)
+    intentMap.set("Getweather-city", getweather)
     agent.handleRequest(intentMap);
 }
