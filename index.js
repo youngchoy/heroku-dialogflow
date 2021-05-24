@@ -30,6 +30,36 @@ const dialogflowFulfillment = (request, response) => {
         agent.add("[heroku]아하, 당신의 이름은 <" + name + "> 군요!!");
     }
 
+    function getwe(agetn){
+        const getJSON = function(url, callback){
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', url, true);
+            xhr.responseType = 'json';
+            xhr.onload = function(){
+                //접속이 성공이면 null 반환, 그 외에는 status값 반환
+                const status = xhr.status;
+                if(status == 200){
+                    callback(null, xhr.response);
+                }else {
+                    callback(status, xhr.response);
+                }
+            };
+            xhr.send
+        };
+
+        getJSON("http://api.openweathermap.org/data/2.5/forecast?q="+city+"&APPID=25a0d91f0eda1fe617efca8571041caf",
+            function(err, data){
+                // null값이 아니면 err
+                if(err !== null){
+                    alert('예기치 못한 오류 발생!' + err);
+                }else{
+                    agent.add("현재 온도는 ${data.main.temp)도 입니다");
+                }
+            }
+        );
+    }
+
+    /*
     function getweathercity(agent){
         var request = require('request');
         var city = "서울특별시";
@@ -72,12 +102,13 @@ const dialogflowFulfillment = (request, response) => {
             agent.add("날씨는 다음과 같다: " + description);
         });
     }
+    */
 
     // 인텐트와 함수를 1대1 대응 시키는 객체 intentMap
     let intentMap = new Map();
     intentMap.set("Default Welcome Intent", sayHello)
     //intentMap.set("Lecture", sayHello)
     //intentMap.set("askEmail", sayName)
-    intentMap.set("Getweather-city", getweathercity)
+    intentMap.set("Getweather-city", getwe)
     agent.handleRequest(intentMap);
 }
