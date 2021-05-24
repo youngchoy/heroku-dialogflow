@@ -51,7 +51,7 @@ const dialogflowFulfillment = (request, response) => {
             function(err, data){
                 // null값이 아니면 err
                 if(err !== null){
-                    alert('예기치 못한 오류 발생!' + err);
+                    agent.add("예기치 못한 오류 발생!" + err);
                 }else{
                     agent.add("현재 온도는 ${data.main.temp)도 입니다");
                 }
