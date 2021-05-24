@@ -30,13 +30,13 @@ const dialogflowFulfillment = (request, response) => {
         agent.add("[heroku]아하, 당신의 이름은 <" + name + "> 군요!!");
     }
 
-    function getwe(agetn){
+    function getwe(agent){
         // get city, date
         var city = "서울특별시";
         city = agent.request_.body.queryResult.outputContexts[0].parameters['city.original'];
         var date = new Date();
         var dateString = agent.request_.body.queryResult.outputContexts[0].parameters['date.original'];
-        var date = new Date(dateString);
+        date = Date(dateString);
 
         const getJSON = function(url, callback){
             var xhr = new XMLHttpRequest();
