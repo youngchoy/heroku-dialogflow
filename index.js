@@ -1,17 +1,38 @@
-var http = require('http');
-var fs = require('fs');
-var app = http.createServer(function(request, response){
-    var url = request.url;
-    if(request.url == '/'){
-        url = '/index.html';
-    }
-    if(request.url == '/favicon.ico'){
-        response.writeHead(404);
-        response.end();
-        return;
-    }
-    response.writeHead(200);
-    response.end(fs.readFileSync(__dirname + url));
+const express = require('express')
+const bodyParser = require('body-parser')
+const {WebhookClient} = require('dialogflow-fulfillment');
+
+const app = express()
+app.use(bodyParser.json())
+const port = process.env.PORT || 3000
+
+app.post('/dialogflow-fulfillment', (request, response) => {
+    dialogflowFulfillment(request, response)
+    
 })
-console.log("실행 포트번호는 :" + process.env.PORT);
-app.listen(process.env.PORT || 3000)
+
+app.listen(port, () => {
+    console.log(`Listening on port ${port}`)
+})
+
+const dialogflowFulfillment = (request, response) => {
+    const agent = new WebhookClient({request, response})
+
+    function sayHello(agent){
+        agent.add("안녕안녕안녕안녕~~")
+    }
+
+    function sayName(agent){
+        //var name2 = agent.request.queryResult.parameters['name'];
+        var name = agent.request_.body.queryResult.outputContexts[0].parameters['name.original']; 
+        //var name = agent.parameters.name['name'];
+        agent.add("[heroku]아하, 당신의 이름은 <" + name + "> 군요!!");
+    }
+
+    // 인텐트와 함수를 1대1 대응 시키는 객체 intentMap
+    let intentMap = new Map();
+    intentMap.set("Default Welcome Intent", sayHello)
+    intentMap.set("Lecture", sayHello)
+    intentMap.set("askEmail", sayName)
+    agent.handleRequest(intentMap);
+}
