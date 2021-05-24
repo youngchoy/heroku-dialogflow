@@ -69,7 +69,7 @@ const dialogflowFulfillment = (request, response) => {
                 }
                 // s = s + date + " " + weather;
             }
-            response.send(JSON.stringify({"fulfillmentText": description}));
+            agent.add("날씨는 다음과 같다: " + description);
         });
     }
 
