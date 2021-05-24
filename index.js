@@ -30,11 +30,9 @@ const dialogflowFulfillment = (request, response) => {
         agent.add("[heroku]아하, 당신의 이름은 <" + name + "> 군요!!");
     }
 
-    var result
-
     function getweathercity(agent){
         var request = require('request');
-        var city = "krypton";
+        var city = "서울특별시";
         city = agent.request_.body.queryResult.outputContexts[0].parameters['city.original'];
         var dateString = agent.request_.body.queryResult.outputContexts[0].parameters['date.original'];
         var date = new Date(dateString);
@@ -45,7 +43,7 @@ const dialogflowFulfillment = (request, response) => {
             city = "Seoul"
         }
  
-        request("http://api.openweathermap.org/data/2.5/forecast?q="+city+"&apikey=25a0d91f0eda1fe617efca8571041caf",function(error, reponse, body){
+        request("http://api.openweathermap.org/data/2.5/forecast?q="+city+"&APPID=25a0d91f0eda1fe617efca8571041caf",function(error, reponse, body){
             console.log('error:', error);
             console.log('statusCode:', response && response.statusCode);
             console.log('body:', body)
@@ -57,13 +55,19 @@ const dialogflowFulfillment = (request, response) => {
             var s = ""
             var description = "none found";
             for (var i = 0;i<obj.list.length;i++){
-                var date = new Date(obj.list[i].dt);
-                var weather = obj.list[i].weather[0].description;
-                if(date.getMonth() == month && date.getDate() == day)
-                {
-                    description = weather;
-                    description = description + " " + date.toString();
+                var date = new Date(obj.list[i].dt * 1000);
+                var s = ""
+                var description = "none found";
+                for (var i = 0;i<obj.list.length;i++){
+                    var date = new Date(obj.list[i].dt);
+                    var weather = obj.list[i].weather[0].description;
+                    if(date.getMonth() == month && date.getDate() == day)
+                    {
+                        description = weather;
+                        description = description + " " + date.toString();
+                    }
                 }
+                // s = s + date + " " + weather;
             }
             response.send(JSON.stringify({"fulfillmentText": description}));
         });
@@ -72,8 +76,8 @@ const dialogflowFulfillment = (request, response) => {
     // 인텐트와 함수를 1대1 대응 시키는 객체 intentMap
     let intentMap = new Map();
     intentMap.set("Default Welcome Intent", sayHello)
-    intentMap.set("Lecture", sayHello)
-    intentMap.set("askEmail", sayName)
-    imtemtMap.set("Getweather-city", getweathercity)
+    //intentMap.set("Lecture", sayHello)
+    //intentMap.set("askEmail", sayName)
+    intentMap.set("Getweather-city", getweathercity)
     agent.handleRequest(intentMap);
 }
