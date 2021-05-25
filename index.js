@@ -84,8 +84,8 @@ const dialogflowFulfillment = (request, response) => {
                     agent.add("api 호출 성공! ${data.main.temp}");
                 }
             });
+            */
     }
-    */
     /*
     function getweathercity(agent){
         var request = require('request');
