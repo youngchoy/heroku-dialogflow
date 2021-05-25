@@ -1,6 +1,7 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const {WebhookClient} = require('dialogflow-fulfillment');
+var axios = require('axios')
 const { setUncaughtExceptionCaptureCallback } = require('process');
 
 const app = express()
@@ -31,13 +32,30 @@ const dialogflowFulfillment = (request, response) => {
     }
 
     function getweather(agent){
+
         // get city, date
+        
         var city = "서울특별시";
         city = agent.request_.body.queryResult.outputContexts[0].parameters['city.original'];
         var date = new Date();
         var dateString = agent.request_.body.queryResult.outputContexts[0].parameters['date'];
         date = Date(dateString);
 
+        return axios({
+            method: "GET",
+            url: "http://api.openweathermap.org/data/2.5/forecast?q="+city+"&APPID=25a0d91f0eda1fe617efca8571041caf",
+            data: "",
+          })
+            .then((response) => {
+              console.log(response.main.temp); //Hello World
+              agent.add("온도:", response.main.temp);
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+
+        /*
+        // JSON형식으로 파일을 받는 방법? 
         const getJSON = function(url, callback){
             var xhr = new XMLHttpRequest();
             xhr.open('GET', url, true);
@@ -54,18 +72,20 @@ const dialogflowFulfillment = (request, response) => {
             xhr.send();
         };
 
-        getJSON("http://api.openweathermap.org/data/2.5/forecast?q="+city+"&APPID=25a0d91f0eda1fe617efca8571041caf",
+        var urll = "http://api.openweathermap.org/data/2.5/forecast?q="+city+"&APPID=25a0d91f0eda1fe617efca8571041caf"
+
+        getJSON(urll,
             function(err, data){
+                // 불러온 값이 data에 저장됨
                 // null값이 아니면 err
                 if(err !== null){
                     agent.add("예기치 못한 오류 발생!" + err);
                 }else{
-                    agent.add("현재 온도는 ${data.main.temp)도 입니다");
+                    agent.add("api 호출 성공! ${data.main.temp}");
                 }
-            }
-        );
+            });
     }
-
+    */
     /*
     function getweathercity(agent){
         var request = require('request');
