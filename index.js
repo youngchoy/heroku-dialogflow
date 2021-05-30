@@ -31,6 +31,34 @@ const dialogflowFulfillment = (request, response) => {
         agent.add("[heroku]아하, 당신의 이름은 <" + name + "> 군요!!");
     }
 
+    function getweather() {
+
+        const city = "서울특별시";
+        city = agent.request_.body.queryResult.outputContexts[0].parameters['city.original'];
+        const date = new Date();
+        const dateString = agent.request_.body.queryResult.outputContexts[0].parameters['date'];
+        date = Date(dateString);
+
+        // 2번째시도 axios => sucess
+        return axios({
+          method: "GET",
+          url: "http://api.openweathermap.org/data/2.5/weather?q="+city+"&appid=aca3d57df145ee10c372ff22aefdaa56",
+          data: "",
+        })
+          .then((response) => {
+            console.log("======================second======================")
+            console.log(response.data.main.temp - 272); //Hello World
+            var temperature = String(response.data.main.temp - 272)
+            console.log("============================================")
+            agent.add("오늘" + city + "의 날씨는 현재 섭씨"+ temperature + "입니다 !"); 
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+        
+    }
+
+/*
     function getweather(agent){
         
         // get city, date
@@ -58,7 +86,7 @@ const dialogflowFulfillment = (request, response) => {
             }
         });
 
-        /*
+        
         return axios({
             method: "GET",
             url: "http://api.openweathermap.org/data/2.5/forecast?q="+city+"&APPID=25a0d91f0eda1fe617efca8571041caf",
