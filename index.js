@@ -68,6 +68,8 @@ const dialogflowFulfillment = (request, response) => {
         
         var url2 = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=aca3d57df145ee10c372ff22aefdaa56";
 
+        url2 = encodeURI(url2)
+
         // 2번째시도 axios => DEADLINE EXCEED error
         return axios({
             method: "GET",
