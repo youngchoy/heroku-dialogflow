@@ -69,7 +69,7 @@ const dialogflowFulfillment = (request, response) => {
         // 2번째시도 axios => DEADLINE EXCEED error
         return axios({
           method: "GET",
-          url: "http://api.openweathermap.org/data/2.5/weather?q="+city+"&appid=aca3d57df145ee10c372ff22aefdaa56",
+          url: "http://api.openweathermap.org/data/2.5/weather?q=성남시&appid=aca3d57df145ee10c372ff22aefdaa56",
           data: "",
         })
           .then((response) => {
