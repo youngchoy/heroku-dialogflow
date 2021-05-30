@@ -33,6 +33,9 @@ const dialogflowFulfillment = (request, response) => {
 
     function getweather(agent){
 
+        agent.add("This is getweather api");
+
+        /*
         // get city, date
         
         var city = "서울특별시";
@@ -54,7 +57,7 @@ const dialogflowFulfillment = (request, response) => {
               console.log(error);
             });
 
-        /*
+        
         // JSON형식으로 파일을 받는 방법? 
         const getJSON = function(url, callback){
             var xhr = new XMLHttpRequest();
@@ -86,6 +89,7 @@ const dialogflowFulfillment = (request, response) => {
             });
             */
     }
+
     /*
     function getweathercity(agent){
         var request = require('request');
