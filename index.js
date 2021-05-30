@@ -65,6 +65,7 @@ const dialogflowFulfillment = (request, response) => {
         var date = new Date();
         var dateString = agent.request_.body.queryResult.outputContexts[0].parameters['date'];
         date = Date(dateString);
+        //string
 
         // 2번째시도 axios => DEADLINE EXCEED error
         return axios({
@@ -77,7 +78,7 @@ const dialogflowFulfillment = (request, response) => {
             console.log(response.data.main.temp - 272); //Hello World
             var temperature = String(response.data.main.temp - 272)
             console.log("============================================")
-            agent.add("오늘" + city + "의 날씨는 현재 섭씨"+ temperature + "입니다 !"); 
+            agent.add("오늘 ddd의 날씨는 현재 섭씨"+ temperature + "입니다 !"); 
           })
           .catch((error) => {
             console.log(error);
