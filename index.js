@@ -50,9 +50,9 @@ const dialogflowFulfillment = (request, response) => {
         const request = require('request');
         request(url, function (err, reponse, body){
             if(eff){
-                agent.add("error: " + error);
+                console.log("error: " + error);
             } else{
-                agent.add("body:" + body);
+                console.log("body:" + body);
             }
         });
 
