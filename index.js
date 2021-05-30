@@ -59,13 +59,13 @@ const dialogflowFulfillment = (request, response) => {
     }
 */
     function getweather() {
-        /*
+        //아래줄 추가
         var city = "서울특별시";
         city = agent.request_.body.queryResult.outputContexts[0].parameters['city.original'];
         var date = new Date();
         var dateString = agent.request_.body.queryResult.outputContexts[0].parameters['date'];
         date = Date(dateString);
-        */
+        
 
         // 2번째시도 axios => DEADLINE EXCEED error
         return axios({
@@ -78,7 +78,7 @@ const dialogflowFulfillment = (request, response) => {
               console.log(response.data.main.temp - 272); //Hello World
               var temperature = String(response.data.main.temp - 272)
               console.log("============================================")
-              agent.add("오늘 서울의 날씨는 현재 섭씨"+ temperature + "입니다 !"); 
+              agent.add("오늘" + city + "날씨는 현재 섭씨"+ temperature + "입니다 !"); // city 추가
             })
             .catch((error) => {
               console.log(error);
