@@ -59,14 +59,14 @@ const dialogflowFulfillment = (request, response) => {
     }
 */
     function getweather() {
-
+        /*
         var city = "서울특별시";
         city = agent.request_.body.queryResult.outputContexts[0].parameters['city.original'];
         var date = new Date();
         var dateString = agent.request_.body.queryResult.outputContexts[0].parameters['date'];
         date = Date(dateString);
-        //string
-
+        */
+       
         // 2번째시도 axios => DEADLINE EXCEED error
         return axios({
           method: "GET",
