@@ -30,7 +30,7 @@ const dialogflowFulfillment = (request, response) => {
         
         agent.add("[heroku]아하, 당신의 이름은 <" + name + "> 군요!!");
     }
-
+/*
     function getweather() {
 
         const city = "서울특별시";
@@ -57,126 +57,26 @@ const dialogflowFulfillment = (request, response) => {
           });
         
     }
-
-/*
-    function getweather(agent){
-        
-        // get city, date
-        
-        var city = "서울특별시";
-        city = agent.request_.body.queryResult.outputContexts[0].parameters['city.original'];
-        var date = new Date();
-        var dateString = agent.request_.body.queryResult.outputContexts[0].parameters['date'];
-        date = Date(dateString);
-
-        //agent.add("뽑아낸 도시: " + city + "뽑아낸 날짜: " + date);
-
-
-        let apiKey = "25a0d91f0eda1fe617efca8571041caf";
-        let url = "http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}";
-
-        const request = require('request');
-        request(url, function (err, reponse, body){
-            if(err){
-                console.log("error: " + err);
-            } else{
-                let weather = JSON.parse(body);
-                let message = `It's 56 degrees in 56!`;
-                agent.add(message);
-            }
-        });
-
-        
+*/
+    function getweather() {
+        // 2번째시도 axios => DEADLINE EXCEED error
         return axios({
-            method: "GET",
-            url: "http://api.openweathermap.org/data/2.5/forecast?q="+city+"&APPID=25a0d91f0eda1fe617efca8571041caf",
-            data: "",
+          method: "GET",
+          url: "http://api.openweathermap.org/data/2.5/weather?q=seoul&appid=aca3d57df145ee10c372ff22aefdaa56",
+          data: "",
+        })
+          .then((response) => {
+            console.log("======================second======================")
+            console.log(response.data.main.temp - 272); //Hello World
+            var temperature = String(response.data.main.temp - 272)
+            console.log("============================================")
+            agent.add("오늘 서울의 날씨는 현재 섭씨"+ temperature + "입니다 !"); 
           })
-            .then((response) => {
-              console.log(response.main.temp); //Hello World
-              agent.add("온도:", response.main.temp);
-            })
-            .catch((error) => {
-              console.log(error);
-            });
-
+          .catch((error) => {
+            console.log(error);
+          });
         
-        // JSON형식으로 파일을 받는 방법? 
-        const getJSON = function(url, callback){
-            var xhr = new XMLHttpRequest();
-            xhr.open('GET', url, true);
-            xhr.responseType = 'json';
-            xhr.onload = function(){
-                //접속이 성공이면 null 반환, 그 외에는 status값 반환
-                const status = xhr.status;
-                if(status == 200){
-                    callback(null, xhr.response);
-                }else {
-                    callback(status, xhr.response);
-                }
-            };
-            xhr.send();
-        };
-
-        var urll = "http://api.openweathermap.org/data/2.5/forecast?q="+city+"&APPID=25a0d91f0eda1fe617efca8571041caf"
-
-        getJSON(urll,
-            function(err, data){
-                // 불러온 값이 data에 저장됨
-                // null값이 아니면 err
-                if(err !== null){
-                    agent.add("예기치 못한 오류 발생!" + err);
-                }else{
-                    agent.add("api 호출 성공! ${data.main.temp}");
-                }
-            });
-            */
     }
-
-    /*
-    function getweathercity(agent){
-        var request = require('request');
-        var city = "서울특별시";
-        city = agent.request_.body.queryResult.outputContexts[0].parameters['city.original'];
-        var dateString = agent.request_.body.queryResult.outputContexts[0].parameters['date.original'];
-        var date = new Date(dateString);
-        var month = date.getMonth();
-        var day = date.getDate();
-
-        if (city == null){
-            city = "Seoul"
-        }
- 
-        request("http://api.openweathermap.org/data/2.5/forecast?q="+city+"&APPID=25a0d91f0eda1fe617efca8571041caf",function(error, reponse, body){
-            console.log('error:', error);
-            console.log('statusCode:', response && response.statusCode);
-            console.log('body:', body)
-            var obj = JSON.parse(body);
-            var list = obj.list[0];console.log("total length: "+obj.list.length);
-            var tempDate = new Date("2021-05-09T12:00:00+08:00");
-            console.log('tempdate month is ' + tempDate.getMonth());
-
-            var s = ""
-            var description = "none found";
-            for (var i = 0;i<obj.list.length;i++){
-                var date = new Date(obj.list[i].dt * 1000);
-                var s = ""
-                var description = "none found";
-                for (var i = 0;i<obj.list.length;i++){
-                    var date = new Date(obj.list[i].dt);
-                    var weather = obj.list[i].weather[0].description;
-                    if(date.getMonth() == month && date.getDate() == day)
-                    {
-                        description = weather;
-                        description = description + " " + date.toString();
-                    }
-                }
-                // s = s + date + " " + weather;
-            }
-            agent.add("날씨는 다음과 같다: " + description);
-        });
-    }
-    */
 
     // 인텐트와 함수를 1대1 대응 시키는 객체 intentMap
     let intentMap = new Map();
