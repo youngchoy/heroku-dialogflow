@@ -32,10 +32,7 @@ const dialogflowFulfillment = (request, response) => {
     }
 
     function getweather(agent){
-
-        agent.add("This is getweather api");
-
-        /*
+        
         // get city, date
         
         var city = "서울특별시";
@@ -44,6 +41,9 @@ const dialogflowFulfillment = (request, response) => {
         var dateString = agent.request_.body.queryResult.outputContexts[0].parameters['date'];
         date = Date(dateString);
 
+        agent.add("뽑아낸 도시: " + city + "뽑아낸 날짜: " + date);
+
+        /*
         return axios({
             method: "GET",
             url: "http://api.openweathermap.org/data/2.5/forecast?q="+city+"&APPID=25a0d91f0eda1fe617efca8571041caf",
