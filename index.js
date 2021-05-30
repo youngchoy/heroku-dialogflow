@@ -45,14 +45,16 @@ const dialogflowFulfillment = (request, response) => {
 
 
         let apiKey = "25a0d91f0eda1fe617efca8571041caf";
-        let url = `http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`;
+        let url = "http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}";
 
         const request = require('request');
         request(url, function (err, reponse, body){
             if(err){
                 console.log("error: " + err);
             } else{
-                console.log("body:" + body);
+                let weather = JSON.parse(body);
+                let message = `It's ${weather.main.temp} degrees in ${weather.name}!`;
+                agent.add(message)
             }
         });
 
