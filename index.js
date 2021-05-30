@@ -61,7 +61,7 @@ const dialogflowFulfillment = (request, response) => {
     function getweather() {
         //아래줄 추가
         var city = "서울특별시";
-        city = agent.request_.body.queryResult.outputContexts[0].parameters['city.original'];
+        city = agent.request_.body.queryResult.outputContexts[0].parameters['city'];
         var date = new Date();
         var dateString = agent.request_.body.queryResult.outputContexts[0].parameters['date'];
         date = Date(dateString);
