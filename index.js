@@ -53,7 +53,7 @@ const dialogflowFulfillment = (request, response) => {
                 console.log("error: " + err);
             } else{
                 let weather = JSON.parse(body);
-                let message = `It's ${weather.main.temp} degrees in ${weather.name}!`;
+                let message = `It's 56 degrees in 56!`;
                 agent.add(message);
             }
         });
