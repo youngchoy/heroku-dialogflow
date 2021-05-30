@@ -66,11 +66,12 @@ const dialogflowFulfillment = (request, response) => {
         var dateString = agent.request_.body.queryResult.outputContexts[0].parameters['date'];
         date = Date(dateString);
         
+        var url2 = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=aca3d57df145ee10c372ff22aefdaa56"
 
         // 2번째시도 axios => DEADLINE EXCEED error
         return axios({
             method: "GET",
-            url: "http://api.openweathermap.org/data/2.5/weather?q=seoul&appid=aca3d57df145ee10c372ff22aefdaa56",
+            url: url2,
             data: "",
           })
             .then((response) => {
