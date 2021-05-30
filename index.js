@@ -41,7 +41,20 @@ const dialogflowFulfillment = (request, response) => {
         var dateString = agent.request_.body.queryResult.outputContexts[0].parameters['date'];
         date = Date(dateString);
 
-        agent.add("뽑아낸 도시: " + city + "뽑아낸 날짜: " + date);
+        //agent.add("뽑아낸 도시: " + city + "뽑아낸 날짜: " + date);
+
+
+        let apiKey = "25a0d91f0eda1fe617efca8571041caf"
+        let url = `http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`
+
+        const request = require('request');
+        request(url, function (err, reponse, body){
+            if(eff){
+                agent.add("error: " + error);
+            } else{
+                agent.add("body:" + body);
+            }
+        });
 
         /*
         return axios({
