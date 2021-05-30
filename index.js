@@ -66,23 +66,23 @@ const dialogflowFulfillment = (request, response) => {
         var dateString = agent.request_.body.queryResult.outputContexts[0].parameters['date'];
         date = Date(dateString);
         */
-       
+
         // 2번째시도 axios => DEADLINE EXCEED error
         return axios({
-          method: "GET",
-          url: "http://api.openweathermap.org/data/2.5/weather?q=서울특별시&appid=aca3d57df145ee10c372ff22aefdaa56",
-          data: "",
-        })
-          .then((response) => {
-            console.log("======================second======================")
-            console.log(response.data.main.temp - 272); //Hello World
-            var temperature = String(response.data.main.temp - 272)
-            console.log("============================================")
-            agent.add("오늘 ddd의 날씨는 현재 섭씨"+ temperature + "입니다 !"); 
+            method: "GET",
+            url: "http://api.openweathermap.org/data/2.5/weather?q=seoul&appid=aca3d57df145ee10c372ff22aefdaa56",
+            data: "",
           })
-          .catch((error) => {
-            console.log(error);
-          });
+            .then((response) => {
+              console.log("======================second======================")
+              console.log(response.data.main.temp - 272); //Hello World
+              var temperature = String(response.data.main.temp - 272)
+              console.log("============================================")
+              agent.add("오늘 서울의 날씨는 현재 섭씨"+ temperature + "입니다 !"); 
+            })
+            .catch((error) => {
+              console.log(error);
+            });
         
     }
 
