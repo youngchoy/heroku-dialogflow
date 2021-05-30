@@ -49,7 +49,7 @@ const dialogflowFulfillment = (request, response) => {
 
         const request = require('request');
         request(url, function (err, reponse, body){
-            if(eff){
+            if(err){
                 console.log("error: " + error);
             } else{
                 console.log("body:" + body);
