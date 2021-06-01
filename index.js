@@ -62,11 +62,13 @@ const dialogflowFulfillment = (request, response) => {
         //아래줄 추가
         var city = "서울특별시";
         city = agent.request_.body.queryResult.outputContexts[0].parameters['city'];
-        var date = new Date();
+        var date1 = new Date();
         var dateString = agent.request_.body.queryResult.outputContexts[0].parameters['date'];
         var dateOriginal = agent.request_.body.queryResult.outputContexts[0].parameters['date.original'];
-        date = Date(dateString);
+        var date2 = Date(dateString);
         
+        var date3 = date2 - date1;
+
         var url2 = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=aca3d57df145ee10c372ff22aefdaa56";
 
         url2 = encodeURI(url2)
@@ -79,10 +81,12 @@ const dialogflowFulfillment = (request, response) => {
           })
             .then((response) => {
               console.log("======================second======================")
+              // response.data.main.temp 현재 온도를 뽑아오는거
+              // 내일 날씨 내일의 온도를 뽑아와야함 --> ?
               var temperature = String((response.data.main.temp - 272).toFixed(1));
-              console.log(dateOriginal)
+              console.log(date3)
               console.log("============================================")
-              agent.add(dateOriginal + "의 " + city + "날씨는 섭씨"+ temperature + "입니다 !"); // city 추가
+              agent.add(dateOriginal + "의 " + city + "날씨는 섭씨"+ temperature + "도 입니다 !"); // city 추가
             })
             .catch((error) => {
               console.log(error);
