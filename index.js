@@ -64,6 +64,7 @@ const dialogflowFulfillment = (request, response) => {
         city = agent.request_.body.queryResult.outputContexts[0].parameters['city'];
         var date = new Date();
         var dateString = agent.request_.body.queryResult.outputContexts[0].parameters['date'];
+        var dateOriginal = agent.request_.body.queryResult.outputContexts[0].parameters['date.original'];
         date = Date(dateString);
         
         var url2 = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=aca3d57df145ee10c372ff22aefdaa56";
@@ -79,7 +80,7 @@ const dialogflowFulfillment = (request, response) => {
             .then((response) => {
               console.log("======================second======================")
               var temperature = String(response.data.main.temp - 272)
-              console.log(dateString)
+              console.log(dateOriginal)
               console.log("============================================")
               agent.add(dateString + "의 " + city + "날씨는 현재 섭씨"+ temperature + "입니다 !"); // city 추가
             })
