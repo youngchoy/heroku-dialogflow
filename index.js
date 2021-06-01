@@ -67,7 +67,7 @@ const dialogflowFulfillment = (request, response) => {
         date2 = Date.parse(date2)
         var dateOriginal = agent.request_.body.queryResult.outputContexts[0].parameters['date.original'];
         
-        var cnt = Math.ceil((date2.getTime()-date1.getTime())/(1000*3600*24)); // NaN
+        // var cnt = Math.ceil((date2.getTime()-date1.getTime())/(1000*3600*24)); // NaN
 
         var url2 = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=aca3d57df145ee10c372ff22aefdaa56";
 
