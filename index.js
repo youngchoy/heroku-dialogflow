@@ -63,7 +63,7 @@ const dialogflowFulfillment = (request, response) => {
         var city = "서울특별시";
         city = agent.request_.body.queryResult.outputContexts[0].parameters['city'];
         var date1 = new Date();
-        var dateString = agent.request_.body.queryResult.outputContexts[0].parameters['date']['date'];
+        var dateString = agent.request_.body.queryResult.outputContexts[0].parameters['date'];
         var dateOriginal = agent.request_.body.queryResult.outputContexts[0].parameters['date.original'];
         var date2 = Date(dateString);
         
