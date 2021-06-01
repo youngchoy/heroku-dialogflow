@@ -64,6 +64,7 @@ const dialogflowFulfillment = (request, response) => {
         city = agent.request_.body.queryResult.outputContexts[0].parameters['city'];
         var date1 = new Date();
         var date2 = agent.request_.body.queryResult.outputContexts[0].parameters['date'];
+        date2 = Date.parse(date2)
         var dateOriginal = agent.request_.body.queryResult.outputContexts[0].parameters['date.original'];
         
         var cnt = Math.ceil((date2.getTime()-date1.getTime())/(1000*3600*24)); // NaN
