@@ -81,12 +81,11 @@ const dialogflowFulfillment = (request, response) => {
               console.log(response.data.main.temp - 272); //Hello World
               var temperature = String(response.data.main.temp - 272)
               console.log("============================================")
-              agent.add("오늘" + city + "날씨는 현재 섭씨"+ temperature + "입니다 !"); // city 추가
+              agent.add(dateString + "의 " + city + "날씨는 현재 섭씨"+ temperature + "입니다 !"); // city 추가
             })
             .catch((error) => {
               console.log(error);
             });
-        
     }
 
     // 인텐트와 함수를 1대1 대응 시키는 객체 intentMap
