@@ -63,7 +63,7 @@ const dialogflowFulfillment = (request, response) => {
         var city = "서울특별시";
         city = agent.request_.body.queryResult.outputContexts[0].parameters['city'];
         var date1 = new Date();
-        var dateString = agent.request_.body.queryResult.outputContexts[0].parameters['date'];
+        var dateString = agent.request_.body.queryResult.outputContexts[0].parameters['date']['date'];
         var dateOriginal = agent.request_.body.queryResult.outputContexts[0].parameters['date.original'];
         var date2 = Date(dateString);
         
@@ -85,7 +85,7 @@ const dialogflowFulfillment = (request, response) => {
               // 내일 날씨 내일의 온도를 뽑아와야함 --> ?
               var temperature = String((response.data.main.temp - 272).toFixed(1));
               console.log(date1)
-              console.log(date2)
+              console.log(dateString)
               console.log(date3)
               console.log("============================================")
               agent.add(dateOriginal + "의 " + city + "날씨는 섭씨"+ temperature + "도 입니다 !"); // city 추가
