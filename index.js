@@ -66,7 +66,7 @@ const dialogflowFulfillment = (request, response) => {
         var date2 = agent.request_.body.queryResult.outputContexts[0].parameters['date'];
         var dateOriginal = agent.request_.body.queryResult.outputContexts[0].parameters['date.original'];
         
-        var date3 = date2 - date1;
+        var cnt = Math.ceil((edt.getTime()-sdt.getTime())/(1000*3600*24)); // NaN
 
         var url2 = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=aca3d57df145ee10c372ff22aefdaa56";
 
@@ -85,7 +85,7 @@ const dialogflowFulfillment = (request, response) => {
               var temperature = String((response.data.main.temp - 272).toFixed(1));
               console.log(date1)
               console.log(date2)
-              console.log(date3)
+              console.log(cnt)
               console.log("============================================")
               agent.add(dateOriginal + "의 " + city + "날씨는 섭씨"+ temperature + "도 입니다 !"); // city 추가
             })
