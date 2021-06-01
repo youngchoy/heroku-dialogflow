@@ -79,7 +79,7 @@ const dialogflowFulfillment = (request, response) => {
           })
             .then((response) => {
               console.log("======================second======================")
-              var temperature = String(response.data.main.temp - 272)
+              var temperature = String((response.data.main.temp - 272).toFixed(1));
               console.log(dateOriginal)
               console.log("============================================")
               agent.add(dateOriginal + "의 " + city + "날씨는 섭씨"+ temperature + "입니다 !"); // city 추가
