@@ -64,6 +64,7 @@ const dialogflowFulfillment = (request, response) => {
         city = agent.request_.body.queryResult.outputContexts[0].parameters['city'];
         var date1 = new Date();
         var date2 = agent.request_.body.queryResult.outputContexts[0].parameters['date'];
+        console.log("====================first=====================")
         console.log("real date1: " + date1);
         console.log("real date2: ", + date2);
         date2 = Date.parse(date2);
