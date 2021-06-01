@@ -64,15 +64,18 @@ const dialogflowFulfillment = (request, response) => {
         city = agent.request_.body.queryResult.outputContexts[0].parameters['city'];
         var date1 = new Date();
         var date2 = agent.request_.body.queryResult.outputContexts[0].parameters['date'];
-        date2 = Date.parse(date2)
+        console.log("real date1: " + date1);
+        console.log("real date2: ", + date2);
+        date2 = Date.parse(date2);
+        date1 = Date.parse(date1);
         var dateOriginal = agent.request_.body.queryResult.outputContexts[0].parameters['date.original'];
         
         // var cnt = Math.ceil((date2.getTime()-date1.getTime())/(1000*3600*24)); // NaN
-        var cnt = 0;
+        var cnt = date2 - date1;
 
         var url2 = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=aca3d57df145ee10c372ff22aefdaa56";
 
-        url2 = encodeURI(url2)
+        url2 = encodeURI(url2);
 
         // 2번째시도 axios => DEADLINE EXCEED error
         return axios({
