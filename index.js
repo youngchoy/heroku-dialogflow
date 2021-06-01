@@ -84,6 +84,8 @@ const dialogflowFulfillment = (request, response) => {
               // response.data.main.temp 현재 온도를 뽑아오는거
               // 내일 날씨 내일의 온도를 뽑아와야함 --> ?
               var temperature = String((response.data.main.temp - 272).toFixed(1));
+              console.log(date1)
+              console.log(date2)
               console.log(date3)
               console.log("============================================")
               agent.add(dateOriginal + "의 " + city + "날씨는 섭씨"+ temperature + "도 입니다 !"); // city 추가
