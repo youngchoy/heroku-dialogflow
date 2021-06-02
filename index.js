@@ -44,7 +44,7 @@ const dialogflowFulfillment = (request, response) => {
         // 내일, 다음주 토요일등 물어본 날짜의 문자열
         var dateOriginal = agent.request_.body.queryResult.outputContexts[0].parameters['date.original'];
 
-        if(date2 == NaN){
+        if(isNaN(date2)){
 
             // 따로 날짜 데이터가 들어오지 않았을때 현재 날씨를 불러온다.
             var url2 = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&lang=kr&appid=aca3d57df145ee10c372ff22aefdaa56";
@@ -59,6 +59,7 @@ const dialogflowFulfillment = (request, response) => {
                   console.log("======================second======================")
                   var temperature = String((response.data.main.temp - 272).toFixed(1));
                   var descrip = String(response.data.weather.description)
+                  console.log("=============if문 NaN감지성공===============")
                   console.log(descrip)
                   console.log(date2)
                   console.log("============================================")
@@ -84,6 +85,7 @@ const dialogflowFulfillment = (request, response) => {
                   console.log("======================second======================")
                   var temperature = String((response.data.list[0].main.temp - 272).toFixed(1));
                   var dt = String(response.data.list[0].dt)
+                  console.log("===========else문=============")
                   console.log(date1)
                   console.log(date2)
                   console.log("============================================")
