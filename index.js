@@ -58,7 +58,7 @@ const dialogflowFulfillment = (request, response) => {
                 .then((response) => {
                   console.log("======================second======================")
                   var temperature = String((response.data.main.temp - 272).toFixed(1));
-                  var descrip = String(response.data.weather.description)
+                  var descrip = String(response.data.weather[0].description)
                   console.log("=============if문 NaN감지성공===============")
                   console.log(descrip)
                   console.log(date2)
