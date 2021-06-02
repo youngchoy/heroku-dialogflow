@@ -61,7 +61,6 @@ const dialogflowFulfillment = (request, response) => {
                   var descrip = String(response.data.weather.description)
                   console.log(descrip)
                   console.log(date2)
-                  console.log(cnt)
                   console.log("============================================")
                   agent.add("현재 " + city + "의 날씨는 섭씨"+ temperature + "도 이고 현재" + descrip + "입니다!"); // city 추가
                 })
