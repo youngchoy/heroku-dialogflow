@@ -47,7 +47,7 @@ const dialogflowFulfillment = (request, response) => {
         if(date2 == NaN){
 
             // 따로 날짜 데이터가 들어오지 않았을때 현재 날씨를 불러온다.
-            var url2 = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&cnt=" + cnt + "&lang=kr&appid=aca3d57df145ee10c372ff22aefdaa56";
+            var url2 = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&lang=kr&appid=aca3d57df145ee10c372ff22aefdaa56";
             url2 = encodeURI(url2);
 
             return axios({
@@ -86,7 +86,6 @@ const dialogflowFulfillment = (request, response) => {
                   var dt = String(response.data.list[0].dt)
                   console.log(date1)
                   console.log(date2)
-                  console.log(cnt)
                   console.log("============================================")
                   agent.add("현재 " + city + "의 날씨는 섭씨"+ temperature + "도 입니다 !"); // city 추가
                 })
